@@ -1,0 +1,12 @@
+.rsync
+*.pyc
+*.dSYM
+*.o
+*.err
+*.bak
+.htaccess
+.Apple*
+.DS_Store
+.com.apple.*
+doc
+Doxyfile
