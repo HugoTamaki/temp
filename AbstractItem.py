@@ -40,7 +40,7 @@ class AbstractItem(Item.Item):
 
 	## Returns this item due date.
 	def getDueDate(self):
-		if (rented):
+		if (self.rented):
 			return self.__dueDate
 		return None
 
@@ -52,6 +52,9 @@ class AbstractItem(Item.Item):
 	def getBarcode(self):
 		return self.__barcode
 
+
+	def setRented(self, today):
+		pass
 	##
 	#  Returns a representation of the state of this object as a
 	#  multiline string.  The format is:

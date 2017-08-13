@@ -23,11 +23,11 @@ from AbstractItem import AbstractItem
 #  items if they have any items overdue.
 #
 class Customer:
-  
+
 	##
 	#  Constructs a Customer with the given name.  Initially
 	#  there are no items rented and the balance is zero.
-	#  @param name 
+	#  @param name
 	#    the new customer's name
 	#
 	def __init__(self, name):
@@ -37,15 +37,15 @@ class Customer:
 		self.__name = name
    		## Balance currently owed by this customer.
 		self.__balance = 0
-  
+
 	##
 	#  Rents an item and adds it to this customer's list of items.
-	#  If the item can be rented, this method updates the item's 
+	#  If the item can be rented, this method updates the item's
 	#  status (including the due date) and then adds it to this customer's list of items.
 	#  If the item cannot be rented to this customer, a StatusException is thrown.
-	#  @param item 
+	#  @param item
 	#    the item to be rented
-	#  @param today 
+	#  @param today
 	#    the date on which the item is being rented
 	#  @throws StatusException
 	#    if the item cannot be rented to this customer for any reason
@@ -53,58 +53,71 @@ class Customer:
 	def rentItem(self, item, today):
 		if not self.canRent(today):
 			raise StatusException("Customer already has overdue items")
-		item.setRented(today) 
+		item.setRented(today)
 		self.__balance += item.getRentalCost()
 		self.__itemsOut.append(item)
 
 	##
 	#  Returns an item that this customer currently has rented and updates
-	#  the balance if a late fee or credit is due.  If the item can be 
-	#  successfully returned, this method updates the item's status and removes 
+	#  the balance if a late fee or credit is due.  If the item can be
+	#  successfully returned, this method updates the item's status and removes
 	#  it from this customer's list of items.  If the customer does not have
 	#  the item rented, a StatusException is thrown.
-	#  @param barcode 
+	#  @param barcode
 	#    identifier for the item to be returned
-	#  @param today 
+	#  @param today
 	#    the date on which the item is being returned
 	#  @throws StatusException
 	#    if this customer does not have the given item rented
 	#
 	def bringBackItem(self, barcode, today):
-		# raise StatusException
-		# TODO
-		pass
-  
+		itemByBarcode = list(filter(lambda item: item.getBarcode() == barcode, self.__itemsOut))
+		if itemByBarcode[0]:
+			self.__itemsOut.remove(itemByBarcode[0])
+
+			deliveryDate = itemByBarcode[0].dueDate
+
+			print(deliveryDate)
+			print(today)
+			if today > deliveryDate:
+				diff = today - deliveryDate
+
+				self.__balance += itemByBarcode[0].DELAY_VALUE * diff.days
+
+			itemByBarcode[0].setReturned(today)
+		else:
+			raise StatusException("Item not found")
+
 	##
 	#  Returns the balance for this customer.
-	#  @return 
+	#  @return
 	#    this customer's balance
 	#
 	def getBalance(self):
 		return self.__balance
-  
+
 	##
 	#  Returns the name of this customer.
-	#  @return 
+	#  @return
 	#    this customer's name
 	#
 	def getName(self):
 		return self.__name
-  
+
 	##
 	#  Makes a payment on this customer's balance.
-	#  @param amount 
+	#  @param amount
 	#    the amount to be paid, in cents
 	#
 	def makePayment(self, amount):
 		self.__balance -= amount;
-  
+
 	##
 	#  Returns a string representation of this customer.  The format
 	#  consists of multiple lines.  The first line is the patron's name.
 	#  Subsequent lines are formed from the __str__() values of the
 	#  items currently rented, separated by a newline.
-	#  @return 
+	#  @return
 	#    representation of this object as a multi-line string
 	#
 	def __str__(self):
@@ -113,7 +126,7 @@ class Customer:
 			sb += item
 			sb += "\n"
 		return sb
-  
+
 	##
 	#  Helper method determines whether this customer
 	#  already has overdue items.
@@ -138,8 +151,8 @@ def main():
 			customer.rentItem(item, "")
 		except:
 			print("rentItem method not implemented yet. Sorry...")
-		
 
-if __name__ == "__main__":
-    sys.exit(main())
+
+# if __name__ == "__main__":
+    # sys.exit(main())
 

@@ -22,7 +22,7 @@ class Item(object):
 	##
 	#  Rents this item if it is not already rented and sets the
 	#  due date.
-	#  @param today 
+	#  @param today
 	#    the date on which this item is being rented
 	#  @throws StatusException
 	#    if the item cannot be rented
@@ -32,14 +32,14 @@ class Item(object):
 
 	##
 	#  Returns this item, if it is currently rented.
-	#  @param today 
+	#  @param today
 	#    the date on which the item is being returned
 	#  @throws StatusException
 	#    if the item is not currently rented
 	#
-	def setReturned(self,today): 
+	def setReturned(self,today):
 		raise StatusException("setReturned: Must be implemented")
-  
+
 	##
 	#  Returns the cost to rent this item.
 	#  @return
@@ -51,7 +51,7 @@ class Item(object):
 	##
 	#  Calculates the late fee (or bonus) that would be charged (or
 	#  applied) for returning the item on the given date.
-	#  @param today 
+	#  @param today
 	#    the date on which the item is being returned
 	#  @return
 	#    the late fee or bonus for returning the item on the given date,
@@ -62,41 +62,41 @@ class Item(object):
 
 	##
 	#  Returns a String representing the genre of this item
-	#  @return 
+	#  @return
 	#    genre of this item
 	#
 	def getGenre(self):
-		return "Not implemented yet"
+		return self.__genre
 
 	##
 	#  Determines whether this item is currently rented.
-	#  @return 
+	#  @return
 	#    true if this item is rented, false otherwise
 	#
 	def isRented(self):
-		pass
+		return self.__rented
 
 	##
 	#  Returns the due date for this item if it is currently rented,
 	#  or null if the item is not rented.
-	#  @return 
+	#  @return
 	#    due date for this item
 	#
 	def getDueDate(self):
-		pass
+		return self.__dueDate
 
 	##
 	#  Returns the title of this item.
-	#  @return 
+	#  @return
 	#    title of this item
 	#
 	def getTitle(self):
-		pass
+		return self.__title
 
 	##
 	#  Returns the integer barcode for this item.
-	#  @return 
+	#  @return
 	#    barcode of this item
 	#
 	def getBarcode(self):
-		pass
+		return self.__barcode
