@@ -71,7 +71,10 @@ class Customer:
 	#    if this customer does not have the given item rented
 	#
 	def bringBackItem(self, barcode, today):
+		# pega um item pelo codigo de barra
 		itemByBarcode = list(filter(lambda item: item.getBarcode() == barcode, self.__itemsOut))
+
+		# se existir um item
 		if itemByBarcode[0]:
 			self.__itemsOut.remove(itemByBarcode[0])
 
